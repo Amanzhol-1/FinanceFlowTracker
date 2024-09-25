@@ -49,6 +49,9 @@ FinanceFlowTracker — это микросервис, разработанный
 
 
 
+----
+
+
 # Документация по запуску проекта FinanceFlowTracker
 
 ## 1. Клонирование репозитория
@@ -62,7 +65,7 @@ git clone https://github.com/Amanzhol-1/FinanceFlowTracker.git
 ## 2. Настройка API ключа для получения курсов валют
 
 ### Получите API ключ:
-Зарегистрируйтесь на сервисе [Twelve Data](https://www.twelvedata.com/) или другом провайдере курсов валют и получите API ключ.
+Зарегистрируйтесь на сервисе [Twelve Data](https://www.twelvedata.com/) 
 
 ### Укажите API ключ в проекте:
  Откройте файл `CurrencyService.java`, расположенный по пути:
@@ -88,8 +91,6 @@ git clone https://github.com/Amanzhol-1/FinanceFlowTracker.git
 ```bash
 cd путь/до/FinanceFlowTracker
 ```
-
-### 5. Сборка и запуск контейнеров
 
 ```bash
 docker-compose up --build
