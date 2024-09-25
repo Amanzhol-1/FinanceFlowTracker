@@ -88,7 +88,7 @@ git clone https://github.com/Amanzhol-1/FinanceFlowTracker.git
 Откройте терминал и перейдите в корневой каталог проекта FinanceFlowTracker:
 
 ```bash
-cd путь/до/FinanceFlowTracker
+cd FinanceFlowTracker
 ```
 
 ```bash
