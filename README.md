@@ -1,92 +1,92 @@
 # FinanceFlowTracker
 
-## Описание
-FinanceFlowTracker — это микросервис, разработанный с использованием Spring Boot, предназначенный для управления финансовыми транзакциями и контроля месячных лимитов расходов. Сервис позволяет записывать транзакции в разных валютах, автоматически конвертировать суммы в USD по актуальным курсам, устанавливать индивидуальные лимиты по категориям расходов и получать отчеты о транзакциях, превысивших установленные лимиты.
+## Description
+FinanceFlowTracker is a microservice developed using Spring Boot, designed for managing financial transactions and monitoring monthly spending limits. The service allows for recording transactions in different currencies, automatically converting amounts into USD using current exchange rates, setting individual limits by spending categories, and generating reports for transactions that exceed the established limits.
 
-## Технологии
-- **Spring Boot** — фреймворк для создания и управления RESTful API.
-- **Hibernate/JPA** — для работы с реляционной базой данных.
-- **Lombok** — библиотека для сокращения шаблонного кода.
-- **RestTemplate/WebClient** — для взаимодействия с внешними API (получение курсов валют).
-- **Docker** — для контейнеризации приложения.
-- **Docker Compose** — инструмент для управления многоконтейнерными Docker-приложениями.
-- **JUnit 5** — для модульного тестирования и написания юнит-тестов.
+## Technologies
+- **Spring Boot** — framework for creating and managing RESTful APIs.
+- **Hibernate/JPA** — for working with a relational database.
+- **Lombok** — a library for reducing boilerplate code.
+- **RestTemplate/WebClient** — for interacting with external APIs (currency exchange rates).
+- **Docker** — for containerizing the application.
+- **Docker Compose** — tool for managing multi-container Docker applications.
+- **JUnit 5** — for unit testing and writing test cases.
 
-## Функциональность
-- **Запись транзакций**: прием и сохранение информации о расходных операциях в различных валютах (например, KZT, RUB).
-- **Месячный лимит расходов**: хранение месячных лимитов по расходам в USD для категорий "товары" и "услуги".
-- **Получение курсов валют**: ежедневное обновление курсов валютных пар KZT/USD и RUB/USD с сохранением в базе данных. При отсутствии актуальных данных используется курс предыдущего дня.
-- **Флаг превышения лимита**: автоматическое помечание транзакций, превысивших месячный лимит, флагом limit_exceeded.
-- **Установка нового лимита**: возможность установки нового лимита расходов с фиксацией текущей даты. Новый лимит не влияет на предыдущие транзакции.
-- **Отчет о превышении лимита**: предоставление списка транзакций, превысивших лимит, с указанием суммы лимита, валюты (USD) и даты установления.
+## Features
+- **Transaction recording**: records and saves information on expense transactions in various currencies (e.g., KZT, RUB).
+- **Monthly spending limit**: stores monthly spending limits in USD for "goods" and "services" categories.
+- **Currency exchange rates**: daily updates of KZT/USD and RUB/USD currency pairs with storage in the database. If current data is unavailable, the rate from the previous day is used.
+- **Limit exceeded flag**: automatically flags transactions that exceed the monthly limit with a limit_exceeded flag.
+- **Setting a new limit**: allows setting a new spending limit with the current date. The new limit does not affect past transactions.
+- **Exceeded limit report**: provides a list of transactions that exceeded the limit, including the limit amount, currency (USD), and the date the limit was set.
 
-## API Эндпоинты
+## API Endpoints
 
-### 1. API для обработки транзакций
-| Метод | HTTP Запрос | Описание |
+### 1. Transaction Handling API
+| Method | HTTP Request | Description |
 |-------|-------------|----------|
-| POST  | `/api/transactions/create` | Создание новой транзакции |
-| GET   | `/api/transactions/all` | Получение списка всех транзакций |
-| GET   | `/api/transactions/exceeding-limit?limit={limit}` | Получение транзакций, превысивших указанный лимит |
-| GET   | `/api/transactions/by-category-and-month` | Получение транзакций по категории и месяцу |
-| GET   | `/api/transactions/limit-exceeded-report` | Получение отчета о транзакциях с превышением лимита |
+| POST  | `/api/transactions/create` | Creates a new transaction |
+| GET   | `/api/transactions/all` | Retrieves a list of all transactions |
+| GET   | `/api/transactions/exceeding-limit?limit={limit}` | Retrieves transactions that exceeded the specified limit |
+| GET   | `/api/transactions/by-category-and-month` | Retrieves transactions by category and month |
+| GET   | `/api/transactions/limit-exceeded-report` | Retrieves a report of transactions that exceeded the limit |
 
-### 2. Клиентский API для управления лимитами
-| Метод | HTTP Запрос | Описание |
+### 2. Client API for Limit Management
+| Method | HTTP Request | Description |
 |-------|-------------|----------|
-| POST  | `/api/limits/set` | Установка нового лимита расходов |
-| GET   | `/api/limits/all` | Получение списка всех установленных лимитов |
-| GET   | `/api/limits/by-category/{category}` | Получение лимитов для указанной категории расходов |
+| POST  | `/api/limits/set` | Sets a new spending limit |
+| GET   | `/api/limits/all` | Retrieves a list of all set limits |
+| GET   | `/api/limits/by-category/{category}` | Retrieves limits for the specified spending category |
 
-### 3. API для обновления курсов валют
-| Метод | HTTP Запрос | Описание |
+### 3. API for Updating Currency Rates
+| Method | HTTP Request | Description |
 |-------|-------------|----------|
-| GET   | `/update-currency-rates` | Ручное обновление курсов валют |
+| GET   | `/update-currency-rates` | Manual update of currency exchange rates |
 
-## Дополнительная информация
-- **Валюта по умолчанию**: Все лимиты устанавливаются в USD.
-- **Курсы валют**: Курсы валют запрашиваются из внешнего API и кэшируются в базе данных для оптимизации запросов.
-- **Обработка курсов на выходные и праздники**: Если курсы валют недоступны на текущую дату, используется последний доступный курс.
+## Additional Information
+- **Default Currency**: All limits are set in USD.
+- **Currency Rates**: Currency rates are fetched from an external API and cached in the database to optimize requests.
+- **Handling rates on weekends and holidays**: If exchange rates are unavailable on the current date, the last available rate is used.
 
 
 
 ----
 
 
-# Документация по запуску проекта FinanceFlowTracker
-## 1. Клонирование репозитория
+# Documentation on launching the FinanceFlowTracker project
+## 1. Repository cloning
 
-Склонируйте репозиторий проекта на ваш локальный компьютер. Если вы используете Git, выполните команду:
+Clone the project repository to your local computer:
 
 ```bash
 git clone https://github.com/Amanzhol-1/FinanceFlowTracker.git
 ```
 
-## 2. Настройка API ключа для получения курсов валют
+## 2. Configuring API key to get currency rates
 
-### Получите API ключ:
-Зарегистрируйтесь на сервисе [Twelve Data](https://www.twelvedata.com/) 
+### Setting up API key to get currency rates:
+Sign up for the service [Twelve Data](https://www.twelvedata.com/) 
 
-### Укажите API ключ в проекте:
- Откройте файл `CurrencyService.java`, расположенный по пути:
+### Specify the API key in the project:
+ Open the file `CurrencyService.java`, en route:
    ```bash
    src/main/java/work/financeflowtracker/service/CurrencyService.java
    ```
 
- Найдите строку:
+ Find the line:
    ```java
    String apiKey = "YOUR API KEY";
    ```
 
-3. Замените `"YOUR API KEY"` на ваш реальный API ключ.
+3. Replace `"YOUR API KEY"` with your actual API key.
 
-## 3. Настройка переменных окружения (при необходимости)
+## 3. Configuring environment variables
 
-В файле `docker-compose.yml` необходимо добавить свои данные о бд и т.д
+In the file `docker-compose.yml`, you need to add your database details etc
 
-## 4. Запуск приложения
+## 4. Starting the application
 
-Откройте терминал и перейдите в корневой каталог проекта FinanceFlowTracker:
+Open the terminal and navigate to the root directory of the FinanceFlowTracker project:
 
 ```bash
 cd FinanceFlowTracker
